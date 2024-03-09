@@ -32,7 +32,7 @@ def knn(X_train, X_test, y_train, y_test):
     print('accuracy is',accuracy_score(y_pred,y_test))
 
 
-def svm():
+def sv_machine(X_train, X_test, y_train, y_test):
     model = svm.SVC() #select the algorithm
     model.fit(X_train, y_train) # train the algorithm with the training data and the training output
     prediction=model.predict(X_test) #pass the testing data to the trained algorithm
