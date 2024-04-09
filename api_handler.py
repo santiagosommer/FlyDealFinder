@@ -1,5 +1,4 @@
 import requests
-import json
 
 URL = 'https://api.tequila.kiwi.com/v2/search'
 
@@ -9,21 +8,23 @@ headers = {
 }
 
 data = {
-    "fly_from": 'FRA',
-    "date_from": '2024-04-01',
-    "date_to": '2024-04-02',
+    "fly_from": "MVD",
+    "fly_to": "NYC",
+    "date_from": "2024-04-10",
+    "date_to": "2025-04-10",
+    "return_from": "2024-04-10", #Poner return_form asegura que sea pasaje de ida y vuelta
+    "return_from": "2025-04-10",
+    "curr": "USD",
 }
 
 # Realizar la solicitud GET a la API de Tequila
 response = requests.get(url=URL, params=data, headers=headers)
-
-# Verificar si la solicitud fue exitosa (código de estado 200)
-if response.status_code == 200:
-   # Convertir la respuesta descomprimida de JSON a un diccionario de Python
-    data = json.loads(response.content)
-
-    # Procesar los datos según sea necesario
-    print(data)
-else:
+try:
+    response.raise_for_status()
+except:
     print("La solicitud no fue exitosa. Código de estado:", response.status_code)
     print(response.json())
+else:
+    data = response.json()
+    # Procesar los datos según sea necesario
+    print(data)
